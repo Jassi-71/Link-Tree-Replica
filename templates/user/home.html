@@ -1,0 +1,57 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+    <script>
+        var public_url="{{user.public_url}}"
+        var website_url=window.location.href
+        var urlLink = website_url.substring(0,website_url.length-5)+"/read_mode/"+public_url;
+
+        window.onload = function(){document.getElementById("url_label").innerHTML=urlLink;}
+
+        async function copy(){
+            const content=document.getElementById('url_label').textContent;
+            console.log(content);
+            await navigator.clipboard.writeText(content)
+            alert("The public url has been copied!")
+        }
+    </script>
+    <section class="vh-100" style="background-color: #bcfab6">
+    <div class="container" style="padding-top: 10vmin; text-align: center;vertical-align: middle;">
+
+        <div class="row"style="padding: 10px; margin-bottom: 5vmin;">
+            <div class="col">
+                <button type="button" class="btn btn-primary"><h5><a href="/add_url" style="text-decoration: none; color:white">Add more links</a></h5></button>
+            </div>
+        </div>
+
+        <div class="row" style="padding: 10px; margin-bottom: 5vmin; outline: 8px solid #d7a94e;">
+                <div class="col-7">
+                    <label class="form-label" for="displayInfo" id="url_label"><h4>public url will be here</h4></label>
+                </div>
+                <div class="col-5">
+                    <button class="btn btn-info" type="submit" onclick="copy()" style="cursor: pointer;"><h6>Copy the Link</h6></button>
+                </div>
+        </div>
+
+        {% for row in data %}
+        <div class="row" style="padding: 10px; border: 5px solid #095484">
+            <div class="col">
+                <button type="button" class="btn btn-warning"><a href="{{url_for('edit',url_id=row.url_id)}}" style="text-decoration: none; color:white">Edit Link</a></button>
+            </div>
+            <div class="col-2">
+                Name -> {{ row.url_name }}
+{#                {{ row.url_name }}#}
+            </div>
+            <div class="col-6" style="word-wrap: break-word;">
+                Url -> {{ row.url }}
+{#                {{ row.url }}#}
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-danger"><h6><a href="{{url_for('deleteUrl',url_id=row.url_id)}}" style="text-decoration: none; color:white" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a></h6></button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </section>
+
+{% endblock %}

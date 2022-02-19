@@ -1,0 +1,22 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+    <section class="vh-100" style="background-color: #bcfab6;">
+        <div class="container d-flex justify-content-center">
+            <div class="card p-4" style="margin-top:45px; text-align: center;vertical-align: middle;">
+                <div class=" image d-flex flex-column justify-content-center align-items-center">
+                    <button class="btn btn-secondary"> <img src="{{url_for('static', filename='img_1.png')}}" height="150" width="150" /></button> <span class="name mt-3"> Username -> {{ user.username }}</span> <span class="idd"> Your Email Address -> {{user.email}}</span>
+                    <div class="d-flex flex-row justify-content-center align-items-center gap-2"><span>Total Urls -> {{ totalURL }}</span> </div>
+                    <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span>Your Public Url -> {{ user.public_url }} </span> </div>
+                    <div style="padding-bottom: 30px" class=" d-flex mt-2">
+                        <button class="btn1 btn-dark"><a href="/info_change" style="text-decoration: none; color:white">Edit Profile</a></button> </div>
+
+                    <div style="width:100%; border-block: solid;writing-mode: horizontal-tb;" class="d-flex flex-row justify-content-center align-items-center mt-3">
+                        <span class="number"><h3>About</h3><span class="follow"></span></span> </div>
+                    <div style="padding: 7px" class="d-flex flex-row justify-content-center align-items-center gap-2"> <span>{{ user.bio }} </span> </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
